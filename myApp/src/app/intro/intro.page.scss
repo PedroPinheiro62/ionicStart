@@ -1,0 +1,22 @@
+.slide_image{
+    height: 567px;
+    display: block;
+    background-color: white;
+    margin-top: 100px;
+}
+
+.slide_image img{
+    width: 240px;
+}
+
+.slide_image h2{
+    color: black;
+}
+
+.slide_image p{
+    color: black;
+}
+
+ion-content {
+    --background: white;
+  }
