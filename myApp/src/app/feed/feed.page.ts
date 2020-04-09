@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FeedPage implements OnInit {
-  public nome_usuario: string = "Charles França do Codigo";
+  public objeto_feed = {
+    titulo: "Charles França",
+    data: "November 5, 1995",
+    descricao: "Estou criando um app incrível...",
+    qntd_likes: 12,
+    qntd_comment: 4,
+    time_comment: "11h ago"
+  }
 
   constructor() { }
 

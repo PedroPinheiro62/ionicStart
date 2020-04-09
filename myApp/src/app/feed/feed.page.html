@@ -15,33 +15,33 @@
         <img src="../../assets/images/avatar_image.png">
       </ion-avatar>
       <div style="display:block;">
-        <h2 class="feed_title" style="font-size: 20px;">{{ nome_usuario }}</h2>
-        <p class="feed_date">November 5, 1955</p>
+        <h2 class="feed_title" style="font-size: 20px;">{{ objeto_feed.titulo }}</h2>
+        <p class="feed_date">{{ objeto_feed.data }}</p>
       </div>
     </ion-item>
 
     <img src="../../assets/images/feed_image.png">
 
     <ion-card-content>
-      <p>Estou criando um app incrível!</p>
+      <p>{{ objeto_feed.descricao }}</p>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
         <button ion-button icon-left clear small style="display: flex; justify-content: space-between;">
           <ion-icon name="thumbs-up-sharp"></ion-icon>
-          <div>12 Likes</div>
+          <div>{{ objeto_feed.qntd_likes }} likes</div>
         </button>
       </ion-col>
       <ion-col>
         <button ion-button icon-left clear small style="display: flex; justify-content: space-between;">
           <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-          <div>4 comments</div>
+          <div>{{ objeto_feed.qntd_comment }} comments</div>
         </button>
       </ion-col>
       <ion-col center text-center>
         <ion-note>
-          11h ago
+          {{ objeto_feed.time_comment }}
         </ion-note>
       </ion-col>
     </ion-row>
