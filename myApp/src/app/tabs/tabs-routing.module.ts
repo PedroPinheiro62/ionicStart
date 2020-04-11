@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -18,17 +18,22 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'feed', 
+        path: 'feed',
         children: [
           {
             path: '',
             loadChildren: () =>
               import('../feed/feed.module').then(m => m.FeedPageModule)
+          },
+          {
+            path: 'detalhes',
+            loadChildren: () =>
+              import('../filme-detalhes/filme-detalhes.module').then(m => m.FilmeDetalhesPageModule)
           }
         ]
       },
       {
-        path: 'settings', 
+        path: 'settings',
         children: [
           {
             path: '',
@@ -50,4 +55,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

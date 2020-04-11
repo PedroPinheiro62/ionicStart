@@ -5,9 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-  <div>
-    <h1>Nome do Usuário</h1>
-  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Pull to refresh" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-card *ngFor="let filme of lista_filmes">
     <ion-item>
@@ -28,16 +29,16 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear small style="display: flex; justify-content: space-between;">
+        <ion-button clear small>
           <ion-icon name="thumbs-up-sharp"></ion-icon>
           <div>{{ objeto_feed.qntd_likes }} likes</div>
-        </button>
+        </ion-button>
       </ion-col>
       <ion-col>
-        <button ion-button icon-left clear small style="display: flex; justify-content: space-between;">
+        <ion-button clear small>
           <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
           <div>{{ objeto_feed.qntd_comment }} comments</div>
-        </button>
+        </ion-button>
       </ion-col>
       <ion-col center text-center>
         <ion-note>
@@ -46,5 +47,8 @@
       </ion-col>
     </ion-row>
 
+    <ion-button (click)="abrirDetalhes()">Detalhes</ion-button>
+
   </ion-card>
 </ion-content>
+

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { FeedPageRoutingModule } from './feed-routing.module';
-import { FeedPage } from './feed.page';
 import { RouterModule } from '@angular/router';
+
+import { IonicModule } from '@ionic/angular';
+
+import { FilmeDetalhesPage } from './filme-detalhes.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 @NgModule({
@@ -12,10 +13,9 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
     CommonModule,
     FormsModule,
     IonicModule,
-    FeedPageRoutingModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: FeedPage }])
+    RouterModule.forChild([{ path: '', component: FilmeDetalhesPage }])
   ],
-  declarations: [FeedPage]
+  declarations: [FilmeDetalhesPage]
 })
-export class FeedPageModule {}
+export class FilmeDetalhesPageModule {}

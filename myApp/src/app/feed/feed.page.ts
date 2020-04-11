@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MoovieProvider } from '../api/user.service';
+import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -21,24 +23,66 @@ export class FeedPage implements OnInit {
   }
 
   public lista_filmes = new Array<any>();
+  public loading: HTMLIonLoadingElement;
+  public refresher;
+  public isRefreshing: boolean = false;
 
   constructor(
-    private movieProvider: MoovieProvider
-  ) { }
+    private movieProvider: MoovieProvider,
+    public loadingController: LoadingController,
+    private router: Router
+  ) {
+
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Carregando Filmes...',
+    });
+    await this.loading.present();
+  }
 
   public somaDoisNumeros(num1: number, num2: number): void {
     //alert(num1 + num2);
   }
 
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+
+    this.carregarFilmes();
+  }
+
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.carregarFilmes();
+  }
+
+  abrirDetalhes(){
+    this.router.navigateByUrl('tabs/feed/detalhes');
+  }
+
+  async carregarFilmes(){
+    await this.presentLoading();
     this.movieProvider.getLatestMovies().subscribe(
-      data => {
+      async data => {
         console.log(data);
         this.lista_filmes = (data as any).results;
-      }, error => {
+        await this.loading.dismiss();
+        if (this.isRefreshing) {
+          this.refresher.target.complete();
+          this.isRefreshing = false;
+        }
+      }, async error => {
         console.log(error);
+        await this.loading.dismiss();
+        if (this.isRefreshing) {
+          this.refresher.target.complete();
+          this.isRefreshing = false;
+        }
       }
-
     )
   }
 }
