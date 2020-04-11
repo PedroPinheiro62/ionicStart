@@ -12,9 +12,6 @@
 
   <ion-card *ngFor="let filme of lista_filmes">
     <ion-item>
-      <ion-avatar item-start>
-        <img src="../../assets/images/avatar_image.png">
-      </ion-avatar>
       <div style="display:block;">
         <h2 class="feed_title" style="font-size: 20px;">{{ filme.original_title }}</h2>
         <p class="feed_date">{{ filme.release_date }}</p>
@@ -29,26 +26,24 @@
 
     <ion-row>
       <ion-col>
-        <ion-button clear small>
-          <ion-icon name="thumbs-up-sharp"></ion-icon>
-          <div>{{ objeto_feed.qntd_likes }} likes</div>
-        </ion-button>
+        <ion-item>
+          <ion-icon name="star-sharp" style="height: 20px;"></ion-icon>
+          <div> Nota: {{ filme.vote_average }}</div>
+        </ion-item>
       </ion-col>
       <ion-col>
-        <ion-button clear small>
-          <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-          <div>{{ objeto_feed.qntd_comment }} comments</div>
-        </ion-button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          {{ objeto_feed.time_comment }}
-        </ion-note>
+        <ion-item>
+          <div>Votos: {{ filme.vote_count }}</div>
+        </ion-item>
       </ion-col>
     </ion-row>
 
-    <ion-button (click)="abrirDetalhes()">Detalhes</ion-button>
+    <ion-button (click)="abrirDetalhes(filme)">Detalhes</ion-button>
 
   </ion-card>
-</ion-content>
 
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

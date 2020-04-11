@@ -8,5 +8,6 @@
 </ion-header>
 
 <ion-content>
-
+  <img *ngIf="img" [src]="img" alt="">
+  <ion-button (click)="tirarFoto()">Tirar Foto</ion-button>
 </ion-content>

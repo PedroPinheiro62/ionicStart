@@ -23,9 +23,12 @@ export class FeedPage implements OnInit {
   }
 
   public lista_filmes = new Array<any>();
+  public page = 1;
+
   public loading: HTMLIonLoadingElement;
   public refresher;
   public isRefreshing: boolean = false;
+  public infiniteScroll;
 
   constructor(
     private movieProvider: MoovieProvider,
@@ -47,29 +50,43 @@ export class FeedPage implements OnInit {
   }
 
   doRefresh(refresher) {
+    this.page = 1;
     this.refresher = refresher;
     this.isRefreshing = true;
 
     this.carregarFilmes();
   }
 
-  ngOnInit() {
+  loadData(infiniteScroll) {
+    this.page++;
+    this.infiniteScroll = infiniteScroll; 
+
+    this.carregarFilmes(true);
   }
 
-  ionViewDidEnter() {
+  ngOnInit() {
     this.carregarFilmes();
   }
 
-  abrirDetalhes(){
-    this.router.navigateByUrl('tabs/feed/detalhes');
+  abrirDetalhes(filme){
+    console.log(filme)
+    this.router.navigate(['tabs/feed/detalhes', {id: filme.id}]);
   }
 
-  async carregarFilmes(){
+  async carregarFilmes(newPage: boolean = false){
     await this.presentLoading();
-    this.movieProvider.getLatestMovies().subscribe(
+    this.movieProvider.getLatestMovies(this.page).subscribe(
       async data => {
         console.log(data);
-        this.lista_filmes = (data as any).results;
+
+        if(newPage){
+          this.lista_filmes = this.lista_filmes.concat((data as any).results);
+          this.infiniteScroll.target.complete();
+        }
+        else {
+          this.lista_filmes = (data as any).results;
+        }
+        
         await this.loading.dismiss();
         if (this.isRefreshing) {
           this.refresher.target.complete();

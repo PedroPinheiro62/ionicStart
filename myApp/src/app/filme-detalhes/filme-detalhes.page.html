@@ -1,18 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Detalhes do Filme</ion-title>
+    <ion-title *ngIf="filme; else elseBlock">{{ filme.original_title }}</ion-title>
+    <ng-template #elseBlock><ion-title>Não tenho detalhes :(</ion-title></ng-template>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card *ngIf="filme">
     <ion-item>
-      <ion-avatar item-start>
-        <img src="../../assets/images/avatar_image.png">
-      </ion-avatar>
       <div style="display:block;">
-        <h2 class="feed_title" style="font-size: 20px;">{{ filme.original_title }}</h2>
-        <p class="feed_date">{{ filme.release_date }}</p>
+        <p>"{{ filme.tagline }}"</p>
+        <div style="display:flex;">
+          <p *ngFor="let genre of filme.genres">| {{ genre.name }} |</p>
+        </div>
       </div>
     </ion-item>
 
